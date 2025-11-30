@@ -16,7 +16,6 @@ import {
   getDoc
 } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
-// --- FIREBASE CONFIG ---
 const firebaseConfig = {
   apiKey: "AIzaSyAayCWBU6252VQ-R9Q3kTJYkWMQZvDzywM",
   authDomain: "chatv3-a7d04.firebaseapp.com",
@@ -27,18 +26,15 @@ const firebaseConfig = {
   measurementId: "G-BET3GCKVF6"
 };
 
-// --- INIT FIREBASE ---
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// --- SWITCH FORM ---
 window.showForm = function (id) {
   document.querySelectorAll(".form-box").forEach(f => f.classList.remove("active"));
   document.getElementById(id).classList.add("active");
 };
 
-// --- REGISTER ---
 document.getElementById("register").addEventListener("submit", async (e) => {
   e.preventDefault();
   const name = document.getElementById("register-name").value;
@@ -60,7 +56,6 @@ document.getElementById("register").addEventListener("submit", async (e) => {
   }
 });
 
-// --- LOGIN ---
 document.getElementById("login").addEventListener("submit", async (e) => {
   e.preventDefault();
   const email = document.getElementById("login-email").value;
@@ -76,29 +71,24 @@ document.getElementById("login").addEventListener("submit", async (e) => {
 });
 
 function createCameraUI(titleText = "Camera Active") {
-  // Prevent duplicates
   if (document.querySelector(".camera-wrapper")) return;
 
   const wrapper = document.createElement("div");
   wrapper.className = "camera-wrapper";
 
-  // Title
   const title = document.createElement("h3");
   title.className = "camera-title";
   title.innerText = titleText;
 
-  // Video
   const video = document.createElement("video");
   video.id = "video";
   video.autoplay = true;
   video.muted = true;
   video.playsInline = true;
 
-  // Overlay for detection visuals
   const canvas = document.createElement("canvas");
   canvas.id = "overlay";
 
-  // Status text
   const status = document.createElement("div");
   status.className = "camera-status";
   status.innerText = "Starting camera...";
@@ -113,7 +103,6 @@ function createCameraUI(titleText = "Camera Active") {
 }
 
 
-// --- FACE CAPTURE FOR NEW USERS ---
 async function captureFace(uid, name) {
   await Promise.all([
     faceapi.nets.tinyFaceDetector.loadFromUri("./face-api.js-master/models"),
@@ -151,7 +140,6 @@ async function captureFace(uid, name) {
   video.remove();
 }
 
-// --- FACE VERIFICATION AT LOGIN ---
 async function startFaceCheck(uid) {
   await Promise.all([
     faceapi.nets.tinyFaceDetector.loadFromUri("./face-api.js-master/models"),
@@ -202,7 +190,6 @@ toggleBtn.addEventListener('click', () => {
 
   header.classList.toggle('hide', !headerVisible);
 
-  // Change toggle icon to indicate action
   toggleBtn.innerHTML = headerVisible
     ? '<i class="fa-solid fa-chevron-up"></i>'
     : '<i class="fa-solid fa-chevron-down"></i>';

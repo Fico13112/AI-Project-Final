@@ -1,4 +1,3 @@
-// app.js (modular v10)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
 import {
   getAuth,
@@ -25,7 +24,6 @@ import {
   getDownloadURL
 } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-storage.js";
 
-/* ============ CONFIG: replace with your config if different ============ */
 const firebaseConfig = {
   apiKey: "AIzaSyAayCWBU6252VQ-R9Q3kTJYkWMQZvDzywM",
   authDomain: "chatv3-a7d04.firebaseapp.com",
@@ -34,14 +32,12 @@ const firebaseConfig = {
   messagingSenderId: "932472342537",
   appId: "1:932472342537:web:3da1e50ded87d7834c50d8"
 };
-/* ====================================================================== */
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-/* UI elements */
 const avatarCard = document.getElementById("avatarCard");
 const avatarImg = document.getElementById("avatarImg");
 const avatarOverlay = document.querySelector(".avatar-overlay");
@@ -59,7 +55,6 @@ const changeEmailBtn = document.getElementById("changeEmailBtn");
 
 const logoutBtn = document.getElementById("logoutBtn");
 
-/* modals & inputs */
 const modalAvatar = document.getElementById("modalAvatar");
 const modalName = document.getElementById("modalName");
 const modalDesc = document.getElementById("modalDesc");
@@ -77,15 +72,12 @@ const newEmailInput = document.getElementById("newEmail");
 
 const avatarPreview = document.getElementById("avatarPreview");
 
-/* helper close */
 document.querySelectorAll("[data-close]").forEach(btn => btn.addEventListener("click", closeAllModals));
 function showModal(modal){ modal.classList.add("show"); }
 function closeAllModals(){ document.querySelectorAll(".modal").forEach(m => m.classList.remove("show")); }
 
-/* auth guard + load profile */
 onAuthStateChanged(auth, async user => {
   if (!user) {
-    // redirect to your login (adjust path)
     window.location.href = "../login/index.html";
     return;
   }
@@ -93,7 +85,6 @@ onAuthStateChanged(auth, async user => {
   emailTextEl.textContent = user.email || "";
   displayNameEl.textContent = user.displayName || "User";
 
-  // load Firestore
   const udocRef = doc(db, "users", user.uid);
   const udoc = await getDoc(udocRef);
   if (udoc.exists()) {
@@ -111,17 +102,14 @@ onAuthStateChanged(auth, async user => {
   }
 });
 
-/* click avatar -> open modal */
 avatarCard.addEventListener("click", ()=> showModal(modalAvatar));
 
-/* preview avatar file */
 avatarInput.addEventListener("change", (e)=>{
   const f = e.target.files[0];
   if (!f) return;
   avatarPreview.src = URL.createObjectURL(f);
 });
 
-/* save avatar: upload to storage and update profile + Firestore */
 avatarSaveBtn.addEventListener("click", async ()=>{
   const file = avatarInput.files[0];
   const user = auth.currentUser;
@@ -134,7 +122,7 @@ avatarSaveBtn.addEventListener("click", async ()=>{
     await uploadBytes(sref, file);
     const url = await getDownloadURL(sref);
 
-    // update auth profile (photoURL) and Firestore
+    
     try { await updateProfile(user, { photoURL: url }); } catch(e){}
     try { await updateDoc(doc(db, "users", user.uid), { avatarUrl: url }); } catch(e){}
 
@@ -147,7 +135,6 @@ avatarSaveBtn.addEventListener("click", async ()=>{
   }
 });
 
-/* name */
 editNameBtn.addEventListener("click", ()=>{
   inputName.value = displayNameEl.textContent === "Username" ? "" : displayNameEl.textContent;
   showModal(modalName);
@@ -168,7 +155,6 @@ document.getElementById("nameSave").addEventListener("click", async ()=>{
   }
 });
 
-/* description */
 editDescBtn.addEventListener("click", ()=>{
   inputDesc.value = descriptionText.textContent === "Description" ? "" : descriptionText.textContent;
   showModal(modalDesc);
@@ -188,7 +174,6 @@ document.getElementById("descSave").addEventListener("click", async ()=>{
   }
 });
 
-/* password flow */
 changePwBtn.addEventListener("click", ()=> showModal(modalPw));
 document.getElementById("pwSave").addEventListener("click", async ()=>{
   const cp = currentPw.value;
@@ -210,7 +195,6 @@ document.getElementById("pwSave").addEventListener("click", async ()=>{
   }
 });
 
-/* email flow */
 changeEmailBtn.addEventListener("click", ()=> showModal(modalEmail));
 document.getElementById("emailSave").addEventListener("click", async ()=>{
   const cp = currentPwForEmail.value;
@@ -238,7 +222,6 @@ document.getElementById("emailSave").addEventListener("click", async ()=>{
   }
 });
 
-/* logout */
 logoutBtn.addEventListener("click", async ()=>{
   try {
     await signOut(auth);

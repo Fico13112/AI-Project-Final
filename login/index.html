@@ -9,16 +9,13 @@
 
 </head>
 <body>
-  <!--Header Section-->
   <header class="header" id="header">
   <nav class="navbar">
-    <!-- Left: Logo + Brand -->
     <div class="logo-container">
       <img src="/img/logo.png" alt="Pustaka Biru Logo" class="logo">
       <h1 class="brand">Ai Project</h1>
     </div>
 
-    <!-- Right: Register/Login + Icons -->
     <div class="nav-right">
       <div class="auth-links">
         <a href="../login/index.html" class="login">Login</a>
@@ -28,12 +25,15 @@
         <div class="icon-wrapper" data-tooltip="Home">
           <a href="../index.html"><i class="fa-solid fa-house"></i></a>
         </div>
+
         <div class="icon-wrapper" data-tooltip="Info">
           <a href="../info/info.html"><i class="fa-solid fa-circle-info"></i></a>
         </div>
+
         <div class="icon-wrapper" data-tooltip="Profile">
           <a href="../Profile/index.html"><i class="fa fa-user"></i></a>
         </div>
+        
       </div>
     </div>
   </nav>
@@ -46,7 +46,6 @@
 
 
   <div id="forms-container">
-    <!-- Login Form -->
     <div id="login-form" class="form-box active">
       <h2>Login</h2>
       <form id="login">
@@ -57,7 +56,6 @@
       <p>Don’t have an account? <a href="#" onclick="showForm('register-form')">Register</a></p>
     </div>
 
-    <!-- Register Form -->
     <div id="register-form" class="form-box">
       <h2>Register</h2>
       <form id="register">
@@ -76,7 +74,6 @@
 
   <div id="output"></div>
 
-  <!-- Scripts -->
    <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
   <script type="module" src="script.js"></script>
 </body>
