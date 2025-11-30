@@ -188,7 +188,7 @@ async function startFaceCheck(uid) {
       clearInterval(interval);
       stream.getTracks().forEach(t => t.stop());
       document.querySelector(".camera-wrapper")?.remove();
-      window.location.href = "dashboard.html";
+      window.location.href = "../dashboard/index.html";
     }
   }, 1000);
 }

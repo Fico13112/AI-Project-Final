@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <h1 class="page-title">Dashboard</h1>
+
+    <section class="top-row">
+      <div class="card avatar-card" id="avatarCard" title="Click to edit profile picture">
+        <div class="avatar-wrap" id="avatarWrap">
+          <img id="avatarImg" src="img/default.jpg" alt="avatar" />
+          <div class="avatar-overlay">Edit</div>
+        </div>
+      </div>
+
+      <div class="card info-card">
+        <div class="info-row">
+          <h2 id="displayName">Username</h2>
+          <div class="info-actions">
+            <button class="small-btn edit-btn" id="editNameBtn">Edit</button>
+          </div>
+        </div>
+        <p><strong>Email:</strong> <span id="emailText">loading...</span></p>
+        <div class="info-row desc-row">
+          <p id="descriptionText">Description</p>
+          <button class="small-btn edit-btn" id="editDescBtn">Edit</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="password-card card">
+      <div class="password-row">
+        <h3>Password: <span id="pwHidden">Hidden</span></h3>
+        <div>
+          <button class="small-btn" id="changePwBtn">Change Password</button>
+          <button class="small-btn" id="changeEmailBtn">Change Email</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="actions">
+      <button id="logoutBtn" class="primary">Logout</button>
+    </div>
+  </main>
+
+  <!-- MODALS -->
+  <div class="modal" id="modalAvatar">
+    <div class="modal-content">
+      <h3>Change Profile Picture</h3>
+      <input type="file" id="avatarInput" accept="image/*" />
+      <div class="preview-row">
+        <img id="avatarPreview" src="img/default.jpg" alt="preview" />
+      </div>
+      <div class="modal-actions">
+        <button id="avatarSave">Save</button>
+        <button class="cancel" data-close>Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modalName">
+    <div class="modal-content">
+      <h3>Change Username</h3>
+      <input type="text" id="inputName" placeholder="New username" />
+      <div class="modal-actions">
+        <button id="nameSave">Save</button>
+        <button class="cancel" data-close>Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modalDesc">
+    <div class="modal-content">
+      <h3>Change Description</h3>
+      <textarea id="inputDesc" rows="4" placeholder="New description"></textarea>
+      <div class="modal-actions">
+        <button id="descSave">Save</button>
+        <button class="cancel" data-close>Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modalPw">
+    <div class="modal-content">
+      <h3>Change Password</h3>
+      <input id="currentPw" type="password" placeholder="Current password" />
+      <input id="newPw" type="password" placeholder="New password (min 6)" />
+      <div class="modal-actions">
+        <button id="pwSave">Change Password</button>
+        <button class="cancel" data-close>Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modalEmail">
+    <div class="modal-content">
+      <h3>Change Email</h3>
+      <p>We will re-check ownership of your account (enter current password).</p>
+      <input id="currentPwForEmail" type="password" placeholder="Current password" />
+      <input id="newEmail" type="email" placeholder="New email" />
+      <div class="modal-actions">
+        <button id="emailSave">Change Email</button>
+        <button class="cancel" data-close>Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
+
