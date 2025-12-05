@@ -1,7 +1,11 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+
+
 window.showForm = function (id) {
   document.querySelectorAll(".form-box").forEach(f => f.classList.remove("active"));
   document.getElementById(id).classList.add("active");
 };
+
 
 import {
   getAuth,
@@ -135,7 +139,7 @@ async function captureFace(uid, name) {
     await deleteDoc(doc(db, "faces", uid));
     
     if (auth.currentUser) {
-      await deleteUser(auth.currentUser);
+         await deleteUser(auth.currentUser);
     }
     
     stream.getTracks().forEach(t => t.stop());
