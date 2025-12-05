@@ -3,18 +3,21 @@ window.showForm = function (id) {
   document.getElementById(id).classList.add("active");
 };
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  deleteUser
 } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
 import {
   getFirestore,
   doc,
   setDoc,
-  getDoc
+  getDoc,
+  deleteDoc
 } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyAayCWBU6252VQ-R9Q3kTJYkWMQZvDzywM",
@@ -123,13 +126,25 @@ async function captureFace(uid, name) {
     .detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
     .withFaceLandmarks()
     .withFaceDescriptor();
-
+    
+  
   if (!result) {
-    alert("❌ No face detected, please try again.");
+    alert("❌ No face detected. Your account will be deleted so you can retry.");
+    
+    await deleteDoc(doc(db, "users", uid));
+    await deleteDoc(doc(db, "faces", uid));
+    
+    if (auth.currentUser) {
+      await deleteUser(auth.currentUser);
+    }
+    
     stream.getTracks().forEach(t => t.stop());
     document.querySelector(".camera-wrapper")?.remove();
+    
+    location.reload();
     return;
-  }
+  } 
+
 
   await setDoc(doc(db, "faces", uid), {
     name,
