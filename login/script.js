@@ -50,7 +50,7 @@ document.getElementById("register").addEventListener("submit", async (e) => {
     alert("✅ Account created! Now we’ll capture your face.");
     await captureFace(userCred.user.uid, name);
     alert("✅ Face saved! You can now log in.");
-    showForm("login-form");
+    location.reload();
   } catch (error) {
     alert("❌ " + error.message);
   }
